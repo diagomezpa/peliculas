@@ -13,7 +13,7 @@ class MovieHorizontal extends StatelessWidget {
     return Container(
       
       height: _screenSize.height * 0.2 ,
-      child: PageView(// sirve para hacer el move horiontal
+      child: PageView(// sirve para hacer el move horionta
         pageSnapping: false,
         controller:PageController (
           initialPage: 1,
