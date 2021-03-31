@@ -22,7 +22,7 @@ class MovieHorizontal extends StatelessWidget {
       
       if(_pageController.position.pixels >= _pageController.position.maxScrollExtent -200){
 
-          print('carga mas peliulas');
+         // print('carga mas peliulas');
           siguientePagina();
 
       }
@@ -45,19 +45,23 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _tarjeta(BuildContext context , Pelicula pelicula){
+    pelicula.uniqueId = '${pelicula.id}-poster';
 
-    return Container(
+    final tarjeta=  Container(
         margin: EdgeInsets.only(right: 15.0),
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(pelicula.getPosterImg()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit:BoxFit.cover,
-                height: 140.0,
+            Hero(
+                tag:pelicula.uniqueId,
+                child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                  image: NetworkImage(pelicula.getPosterImg()),
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  fit:BoxFit.cover,
+                  height: 140.0,
 
+                ),
               ),
             ),
             SizedBox(height: 5.0),
@@ -69,6 +73,17 @@ class MovieHorizontal extends StatelessWidget {
           ],
         )
       );
+
+      return GestureDetector(
+
+        child:tarjeta,
+        onTap: (){
+
+          print(' ID de mi pelicula ${ pelicula.title}');
+          Navigator.pushNamed(context, 'datalle',arguments: pelicula);
+        },
+      );
+
   }
 
   List <Widget> _tarjetas(BuildContext context){
